@@ -11,7 +11,7 @@ export const personalInfo: PersonalInfo = {
   location: 'Beni-Suef, Egypt',
   email: 'tahaanwar203@gmail.com',
   phone: '+201013810903',
-  profileImage: '/profile.jpg',
+  profileImage: '/main.png',
   cvUrl: 'https://drive.google.com/file/d/1PQM_3c5hYDePXxfK059Q02Ff_Y83kLfN/view?usp=drive_link',
   statusBadge: 'SERVICE_READY',
 };

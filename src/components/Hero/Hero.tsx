@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, Server, Terminal, ShieldAlert, Cpu, FileDown } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Server, Terminal, ShieldAlert, Cpu, FileDown, User, Orbit } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../UI/Icons';
 import { personalInfo } from '../../data/personal';
 import { socialLinks } from '../../data/socialLinks';
@@ -17,6 +17,8 @@ const techHighlights = [
 ];
 
 export const Hero: React.FC = () => {
+  const [activeTab, setActiveTab] = useState<'profile' | 'orbit'>('profile');
+
   const handleScrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const projectsElement = document.getElementById('projects');
@@ -31,13 +33,13 @@ export const Hero: React.FC = () => {
       className="relative min-h-[92vh] pt-32 pb-20 flex items-center justify-center overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
           {/* Left Column: Backend Engineer Pitch */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="lg:col-span-7 flex flex-col items-start text-left"
+            className="lg:col-span-6 xl:col-span-6 flex flex-col items-start text-left"
           >
             {/* Small Badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#120A20] border border-purple-500/30 text-xs font-mono text-purple-300 shadow-[0_0_15px_rgba(139,92,246,0.15)] mb-6">
@@ -142,41 +144,106 @@ export const Hero: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Right Column: Profile Frame + Backend Orbit System */}
+          {/* Right Column: Prominent Profile Frame + Interactive Orbit */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-5 flex flex-col items-center justify-center relative"
+            className="lg:col-span-6 xl:col-span-6 flex flex-col items-center justify-center relative"
           >
-            {/* Command Center Card enclosing Profile & Orbit Preview */}
-            <div className="w-full relative rounded-3xl bg-[#08070D]/80 border border-purple-500/25 p-4 sm:p-6 backdrop-blur-xl shadow-[0_0_50px_rgba(139,92,246,0.12)]">
-              {/* Header Telemetry */}
-              <div className="flex items-center justify-between pb-4 border-b border-purple-500/15 mb-4">
+            {/* Command Center Card */}
+            <div className="w-full relative rounded-3xl bg-[#08070D]/85 border border-purple-500/25 p-5 sm:p-7 backdrop-blur-xl shadow-[0_0_50px_rgba(139,92,246,0.15)] flex flex-col items-center">
+              {/* Header Telemetry with View Switcher */}
+              <div className="w-full flex items-center justify-between pb-4 border-b border-purple-500/15 mb-4">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-purple-400 animate-pulse" />
                   <span className="text-xs font-mono text-purple-200 font-semibold tracking-wider">
-                    COMMAND_CENTER // ORBIT
+                    COMMAND_CENTER
                   </span>
                 </div>
-                <span className="text-[10px] font-mono text-slate-400 tracking-wider">
-                  SYS_ID: TA-NET-01
-                </span>
-              </div>
 
-              {/* Profile Image & Orbital Frame */}
-              <div className="flex justify-center mb-2">
-                <ProfileFrame />
-              </div>
+                {/* View Switcher Tabs */}
+                <div className="flex items-center gap-1 p-1 rounded-xl bg-[#120A20] border border-purple-500/30 text-xs font-mono">
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('profile')}
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all cursor-pointer ${
+                      activeTab === 'profile'
+                        ? 'bg-purple-600 text-white font-semibold shadow-[0_0_12px_rgba(168,85,247,0.4)]'
+                        : 'text-slate-400 hover:text-purple-200'
+                    }`}
+                  >
+                    <User className="w-3 h-3" />
+                    <span>Portrait</span>
+                  </button>
 
-              {/* Backend Orbit Architecture Visualization */}
-              <div className="mt-2 pt-2 border-t border-purple-500/10">
-                <div className="text-center mb-1">
-                  <span className="text-[11px] font-mono tracking-widest text-purple-300 uppercase">
-                    BACKEND ORBIT ARCHITECTURE
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab('orbit')}
+                    className={`flex items-center gap-1.5 px-3 py-1 rounded-lg transition-all cursor-pointer ${
+                      activeTab === 'orbit'
+                        ? 'bg-purple-600 text-white font-semibold shadow-[0_0_12px_rgba(168,85,247,0.4)]'
+                        : 'text-slate-400 hover:text-purple-200'
+                    }`}
+                  >
+                    <Orbit className="w-3 h-3" />
+                    <span>Architecture</span>
+                  </button>
                 </div>
-                <BackendOrbit />
+              </div>
+
+              {/* View Content */}
+              <div className="w-full flex items-center justify-center min-h-[460px]">
+                <AnimatePresence mode="wait">
+                  {activeTab === 'profile' ? (
+                    <motion.div
+                      key="profile-view"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.3 }}
+                      className="w-full flex flex-col items-center justify-center"
+                    >
+                      <ProfileFrame />
+
+                      {/* Quick Peek Hint */}
+                      <button
+                        type="button"
+                        onClick={() => setActiveTab('orbit')}
+                        className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#120A20]/80 hover:bg-[#1A0D2E] border border-purple-500/30 text-[11px] font-mono text-purple-300 hover:text-white transition-colors cursor-pointer"
+                      >
+                        <Orbit className="w-3.5 h-3.5 text-purple-400" />
+                        <span>View Interactive Architecture Orbit →</span>
+                      </button>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="orbit-view"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.3 }}
+                      className="w-full flex flex-col items-center justify-center"
+                    >
+                      <div className="text-center mb-2">
+                        <span className="text-[11px] font-mono tracking-widest text-purple-300 uppercase">
+                          BACKEND ORBIT ARCHITECTURE
+                        </span>
+                      </div>
+                      <BackendOrbit />
+
+                      {/* Return to Portrait Hint */}
+                      <button
+                        type="button"
+                        onClick={() => setActiveTab('profile')}
+                        className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#120A20]/80 hover:bg-[#1A0D2E] border border-purple-500/30 text-[11px] font-mono text-purple-300 hover:text-white transition-colors cursor-pointer"
+                      >
+                        <User className="w-3.5 h-3.5 text-purple-400" />
+                        <span>← Return to Portrait View</span>
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           </motion.div>
