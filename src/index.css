@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+:root {
+  --color-cosmic-bg: #030305;
+  --color-cosmic-card: #08070D;
+  --color-cosmic-card-hover: #0E0B18;
+  --color-cosmic-dark: #120A20;
+  --color-cosmic-deep: #1A0D2E;
+  --color-purple-neon: #8B5CF6;
+  --color-purple-electric: #A855F7;
+  --color-purple-bright: #C084FC;
+  --color-purple-lavender: #DDD6FE;
+  --color-cosmic-text: #F8FAFC;
+  --color-cosmic-muted: #A1A1AA;
+  --color-cosmic-border: rgba(139, 92, 246, 0.18);
+  --color-cosmic-border-hover: rgba(168, 85, 247, 0.45);
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #030305;
+  color: #F8FAFC;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #030305;
+  color: #F8FAFC;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #030305;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1A0D2E;
+  border-radius: 4px;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8B5CF6;
+}
+
+/* Selection */
+::selection {
+  background: rgba(139, 92, 246, 0.35);
+  color: #F8FAFC;
+}
+
+/* Cosmic glows and glass effects */
+.cosmic-glass {
+  background: rgba(8, 7, 13, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(139, 92, 246, 0.16);
+}
+
+.cosmic-glass-card {
+  background: radial-gradient(circle at 50% 0%, rgba(26, 13, 46, 0.3) 0%, rgba(8, 7, 13, 0.85) 75%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(139, 92, 246, 0.14);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cosmic-glass-card:hover {
+  border-color: rgba(168, 85, 247, 0.4);
+  box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.15);
+}
+
+.glow-purple {
+  box-shadow: 0 0 25px -4px rgba(139, 92, 246, 0.3);
+}
+
+.glow-purple-sm {
+  box-shadow: 0 0 12px -2px rgba(139, 92, 246, 0.25);
+}
+
+.text-glow {
+  text-shadow: 0 0 16px rgba(192, 132, 252, 0.4);
+}
+
+.neon-border {
+  border-color: rgba(139, 92, 246, 0.35);
+}
+
+/* Cosmic grid & star utilities */
+.cosmic-grid-pattern {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(139, 92, 246, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(139, 92, 246, 0.04) 1px, transparent 1px);
+}
+
+/* Subtle orbital animations */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin-reverse-slow {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes signal-travel {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-spin-orbit {
+  animation: spin-slow 40s linear infinite;
+}
+
+.animate-spin-orbit-reverse {
+  animation: spin-reverse-slow 35s linear infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 4s ease-in-out infinite;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
